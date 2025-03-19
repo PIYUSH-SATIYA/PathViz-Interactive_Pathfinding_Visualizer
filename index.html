@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PathViz - Pathfinding Algorithm Visualizer</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1><span class="highlight">Path</span>Viz</h1>
+            <p class="tagline">Interactive Pathfinding Visualization</p>
+        </div>
+        <nav class="navbar">
+            <div class="dropdown">
+                <button class="dropdown-btn">Algorithms <i class="fas fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <button class="algo-btn" data-algo="dijkstra">Dijkstra's Algorithm</button>
+                    <button class="algo-btn" data-algo="bfs">Breadth-First Search</button>
+                </div>
+            </div>
+
+            <button class="nav-btn primary-btn" id="visualize-btn">
+                <i class="fas fa-play-circle"></i> Visualize!
+            </button>
+            
+            <button class="nav-btn" id="clear-board">
+                <i class="fas fa-trash-alt"></i> Clear Board
+            </button>
+            <button class="nav-btn" id="clear-walls">
+                <i class="fas fa-eraser"></i> Clear Walls & Weights
+            </button>
+            
+            <div class="tool-selector">
+                <button class="tool-btn active" id="wall-btn">
+                    <i class="fas fa-brick"></i> Wall
+                </button>
+                <button class="tool-btn" id="weight-btn">
+                    <i class="fas fa-weight-hanging"></i> Weight
+                </button>
+                <button class="tool-btn" id="start-btn">
+                    <i class="fas fa-flag-checkered"></i> Start
+                </button>
+                <button class="tool-btn" id="end-btn">
+                    <i class="fas fa-bullseye"></i> End
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="legend">
+            <div class="legend-item"><span class="legend-color start"></span>Start Node</div>
+            <div class="legend-item"><span class="legend-color end"></span>End Node</div>
+            <div class="legend-item"><span class="legend-color wall"></span>Wall</div>
+            <div class="legend-item"><span class="legend-color weight"></span>Weight</div>
+            <div class="legend-item"><span class="legend-color visited"></span>Visited</div>
+            <div class="legend-item"><span class="legend-color path"></span>Path</div>
+        </div>
+        <div class="grid-container" id="grid-container"></div>
+    </main>
+
+    <footer>
+        <p>Created by PathViz | Visualize pathfinding algorithms in action</p>
+    </footer>
+
+</body>
+</html>
