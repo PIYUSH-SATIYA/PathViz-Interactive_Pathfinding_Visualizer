@@ -32,7 +32,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Header and Navigation */
 header {
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     color: white;
@@ -90,7 +89,6 @@ header {
     color: black;
 }
 
-/* Button styles */
 .nav-btn, .dropdown-btn, .algo-btn, .tool-btn {
     padding: 0.6rem 1.2rem;
     border-radius: 8px;
@@ -127,7 +125,6 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Dropdown */
 .dropdown {
     position: relative;
 }
@@ -173,7 +170,6 @@ header {
     transform: translateX(5px);
 }
 
-/* Tool selector */
 .tool-selector {
     display: flex;
     gap: 0.5rem;
@@ -218,7 +214,6 @@ header {
     color: white;
 }
 
-/* Legend */
 .legend {
     display: flex;
     justify-content: center;
@@ -252,7 +247,6 @@ header {
 .legend-color.visited { background-color: var(--visited-color); }
 .legend-color.path { background-color: var(--path-color); }
 
-/* Main content and grid */
 main {
     flex-grow: 1;
     display: flex;
@@ -360,7 +354,6 @@ main {
     font-size: 0.8rem;
 }
 
-/* Footer */
 footer {
     height: auto;
     min-height: var(--footer-height);
