@@ -1,0 +1,87 @@
+Visualizer\visualizer.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinding Algorithm Visualizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="home-link">
+                <div class="logo">PathViz</div>
+            </a>
+            <div class="algorithm-selector">
+                <select id="algorithm">
+                    <option value="dijkstra">Dijkstra's Algorithm</option>
+                    <option value="bfs">Breadth First Search</option>
+                    <option value="astar">A* Algorithm</option>
+                </select>
+            </div>
+            <div class="speed-control">
+                <i class="fas fa-tachometer-alt"></i>
+                <input type="range" id="speed" min="1" max="100" value="50">
+            </div>
+            <button id="theme-toggle" class="theme-btn">
+                <i class="fas fa-moon dark-icon"></i>
+                <i class="fas fa-sun light-icon"></i>
+            </button>
+        </div>
+        <div class="nav-center">
+            <button id="start" class="nav-btn">
+                <i class="fas fa-play"></i> Start
+            </button>
+            <button id="clear" class="nav-btn">
+                <i class="fas fa-trash"></i> Clear
+            </button>
+            <button id="reset" class="nav-btn">
+                <i class="fas fa-undo"></i> Reset
+            </button>
+        </div>
+        <div class="nav-right">
+            <button class="tool-btn active" data-tool="wall">
+                <i class="fas fa-wall"></i> Wall
+            </button>
+            <button class="tool-btn" data-tool="weight">
+                <i class="fas fa-weight"></i> Weight
+            </button>
+            <button class="tool-btn" data-tool="start">
+                <i class="fas fa-flag-checkered"></i> Start
+            </button>
+            <button class="tool-btn" data-tool="end">
+                <i class="fas fa-flag"></i> End
+            </button>
+        </div>
+    </nav>
+    <div class="main-content">
+        <div class="grid-container">
+            <div id="grid"></div>
+        </div>
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <h3>Start Node</h3>
+                <div id="start-node-coord" class="node-list"></div>
+            </div>
+            <div class="sidebar-section">
+                <h3>End Node</h3>
+                <div id="end-node-coord" class="node-list"></div>
+            </div>
+            <div class="sidebar-section">
+                <h3>Visited Nodes</h3>
+                <div id="visited-nodes" class="node-list"></div>
+            </div>
+            <div class="sidebar-section">
+                <h3>Final Path</h3>
+                <div id="final-path" class="node-list"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
