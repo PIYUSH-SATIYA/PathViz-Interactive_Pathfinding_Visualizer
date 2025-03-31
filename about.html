@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About PathViz - Interactive Algorithm Learning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="about.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="landing.html" class="home-link">
+                <div class="logo">PathViz</div>
+            </a>
+            <div class="nav-pagelinks">
+                <a href="landing.html" class="nav-link">Home</a>
+                <a href="index.html" class="nav-link">Visualizer</a>
+                <a href="about.html" class="nav-link active-page">About</a>
+            </div>
+        </div>
+        <button id="theme-toggle" class="theme-btn">
+            <i class="fas fa-moon dark-icon"></i>
+            <i class="fas fa-sun light-icon"></i>
+        </button>
+    </nav>
+
+    <main class="about-container">
+        <h1>About PathViz</h1>
+        
+        <section class="motivation-section">
+            <div class="motivation-card">
+                <h2>Our Motivation</h2>
+                <p>PathViz was born from our fascination with pathfinding algorithms and their real-world applications. We wanted to create an interactive tool that makes these complex algorithms accessible and understandable to everyone - from students taking their first steps in computer science to experienced developers looking to refresh their knowledge.</p>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <h2>Meet the Team</h2>
+            <div class="dev-cards">
+                <div class="dev-card">
+                    <div class="dev-avatar">👩‍💻</div>
+                    <h3>Alice Chen</h3>
+                    <p class="dev-role">Algorithm Specialist</p>
+                    <p class="dev-bio">Passionate about making complex algorithms accessible through visualization.</p>
+                    <a href="https://github.com" class="dev-link" target="_blank">GitHub Profile →</a>
+                </div>
+                <div class="dev-card">
+                    <div class="dev-avatar">👨‍💻</div>
+                    <h3>Bob Smith</h3>
+                    <p class="dev-role">UI/UX Designer</p>
+                    <p class="dev-bio">Focused on creating intuitive and beautiful user experiences.</p>
+                    <a href="https://github.com" class="dev-link" target="_blank">GitHub Profile →</a>
+                </div>
+                <div class="dev-card">
+                    <div class="dev-avatar">👩‍💻</div>
+                    <h3>Carol Davis</h3>
+                    <p class="dev-role">Full-Stack Developer</p>
+                    <p class="dev-bio">Loves building educational tools that make learning fun.</p>
+                    <a href="https://github.com" class="dev-link" target="_blank">GitHub Profile →</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="thank-you-section">
+            <p class="thank-you">Thanks for checking out PathViz! May your paths always be optimal and your heuristics admissible. Happy visualizing! 🎯✨</p>
+        </section>
+    </main>
+
+    <script src="about.js"></script>
+</body>
+</html> 

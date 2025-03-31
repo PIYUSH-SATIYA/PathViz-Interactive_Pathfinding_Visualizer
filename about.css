@@ -1,0 +1,265 @@
+/* Import theme variables */
+:root {
+    /* Dark theme colors */
+    --dark-bg-primary: #021019;
+    --dark-bg-secondary: #041f2d;
+    --dark-cell-default: #0b1f3a;
+    --dark-text: #a0f0f0;
+    --dark-accent: #40E0D0;
+
+    /* Light theme colors */
+    --light-bg-primary: #f0f9ff;
+    --light-bg-secondary: #e0f2fe;
+    --light-cell-default: #ffffff;
+    --light-text: #0f172a;
+    --light-accent: #3b82f6;
+
+    /* Default to dark theme */
+    --bg-primary: var(--dark-bg-primary);
+    --bg-secondary: var(--dark-bg-secondary);
+    --text-primary: var(--dark-text);
+    --accent: var(--dark-accent);
+}
+
+/* Light theme class */
+:root.light-theme {
+    --bg-primary: var(--light-bg-primary);
+    --bg-secondary: var(--light-bg-secondary);
+    --text-primary: var(--light-text);
+    --accent: var(--light-accent);
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.navbar {
+    background: rgba(4, 31, 45, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(64, 224, 208, 0.1);
+    padding: 0rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.home-link {
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    color: var(--accent);
+    font-size: 1.25rem;
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+    text-decoration: none;
+}
+
+.nav-pagelinks {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background: rgba(64, 224, 208, 0.1);
+    transform: translateY(-2px);
+}
+
+.nav-link.active-page {
+    background: var(--accent);
+    color: var(--bg-primary);
+}
+
+.about-container {
+    padding: 7rem 2rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: var(--accent);
+}
+
+.motivation-section {
+    margin-bottom: 4rem;
+}
+
+.motivation-card {
+    background: rgba(11, 31, 58, 0.8);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(64, 224, 208, 0.2);
+    margin-bottom: 3rem;
+}
+
+.team-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.dev-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.dev-card {
+    background: rgba(11, 31, 58, 0.8);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(64, 224, 208, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.dev-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+.dev-avatar {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.dev-role {
+    color: var(--accent);
+    margin: 0.5rem 0;
+}
+
+.dev-bio {
+    margin: 1rem 0;
+}
+
+.dev-link {
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.dev-link:hover {
+    transform: translateX(5px);
+}
+
+.thank-you-section {
+    text-align: center;
+    padding: 2rem;
+}
+
+.thank-you {
+    font-size: 1.2rem;
+    color: var(--accent);
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .dev-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-container {
+        padding: 5rem 1rem 1rem;
+    }
+}
+
+/* Update navbar and cards for light theme */
+:root.light-theme .navbar {
+    background: rgba(224, 242, 254, 0.8);
+    border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+:root.light-theme .motivation-card,
+:root.light-theme .dev-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Update theme toggle button to match main page */
+.theme-btn {
+    background: rgba(11, 31, 58, 0.8);
+    border: 1px solid rgba(64, 224, 208, 0.2);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-btn:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(64, 224, 208, 0.2);
+    transform: translateY(-2px);
+}
+
+.theme-btn .light-icon {
+    display: none;
+}
+
+.theme-btn .dark-icon {
+    display: block;
+}
+
+:root.light-theme .theme-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(59, 130, 246, 0.2);
+}
+
+:root.light-theme .theme-btn .light-icon {
+    display: block;
+    color: #f59e0b;
+}
+
+:root.light-theme .theme-btn .dark-icon {
+    display: none;
+}
+
+/* Update hover effects for light theme */
+:root.light-theme .nav-link:hover {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+:root.light-theme .dev-card:hover {
+    border-color: var(--light-accent);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+}
+
+:root.light-theme .dev-link:hover {
+    color: var(--light-accent);
+} 
