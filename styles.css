@@ -925,3 +925,12 @@ input[type="range"]::-webkit-slider-thumb:hover {
 :root.light-theme .home-link .logo {
     color: var(--light-accent);
 }
+
+.logo-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    display: inline-block;
+}

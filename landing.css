@@ -155,6 +155,15 @@ body.page-exiting {
     text-decoration: none;
 }
 
+.logo-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    display: inline-block;
+}
+
 .nav-pagelinks {
     display: flex;
     gap: 1.5rem;
@@ -434,4 +443,4 @@ footer {
     .features-grid, .steps {
         grid-template-columns: 1fr;
     }
-} 
+}
