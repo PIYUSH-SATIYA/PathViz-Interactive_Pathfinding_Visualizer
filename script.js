@@ -21,6 +21,181 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 400);
         });
     });
+    
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        const root = document.documentElement;
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            root.classList.toggle('light-theme', savedTheme === 'light');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            root.classList.toggle('light-theme');
+            const currentTheme = root.classList.contains('light-theme') ? 'light' : 'dark';
+            localStorage.setItem('theme', currentTheme);
+        });
+    }
+    
+    // Mobile sidebar menu functionality for visualizer page
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const sidebarClose = document.querySelector('.sidebar-close');
+    const sidebar = document.querySelector('.mobile-sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+    
+    if (mobileMenuToggle && sidebar && overlay) {
+        // Open sidebar with stopPropagation
+        mobileMenuToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent event from bubbling
+            sidebar.classList.add('open');
+            overlay.classList.add('visible');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when sidebar is open
+        });
+        
+        // Close sidebar when clicking the close button
+        if (sidebarClose) {
+            sidebarClose.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent event from bubbling
+                sidebar.classList.remove('open');
+                overlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            });
+        }
+        
+        // Close sidebar when clicking overlay
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+            document.body.style.overflow = '';
+        });
+        
+        // Prevent clicks within sidebar from closing it
+        sidebar.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent clicks from bubbling to document
+        });
+        
+        // Close when pressing Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Close when screen resizes to larger size
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Connect sidebar buttons to their main counterparts
+        const sidebarStart = document.getElementById('sidebar-start');
+        const sidebarClear = document.getElementById('sidebar-clear');
+        const sidebarReset = document.getElementById('sidebar-reset');
+        const mainStart = document.getElementById('start');
+        const mainClear = document.getElementById('clear');
+        const mainReset = document.getElementById('reset');
+        
+        if (sidebarStart && mainStart) {
+            sidebarStart.addEventListener('click', () => {
+                mainStart.click();
+                sidebar.classList.remove('open');
+                overlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            });
+        }
+        
+        if (sidebarClear && mainClear) {
+            sidebarClear.addEventListener('click', () => {
+                mainClear.click();
+                sidebar.classList.remove('open');
+                overlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            });
+        }
+        
+        if (sidebarReset && mainReset) {
+            sidebarReset.addEventListener('click', () => {
+                mainReset.click();
+                sidebar.classList.remove('open');
+                overlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            });
+        }
+        
+        // Connect sidebar tool buttons to their main counterparts
+        const sidebarToolBtns = document.querySelectorAll('.sidebar-tool-btn');
+        const mainToolBtns = document.querySelectorAll('.tool-btn');
+        
+        // Initial sync from main buttons to sidebar
+        let activeToolName = '';
+        mainToolBtns.forEach(btn => {
+            if (btn.classList.contains('active')) {
+                activeToolName = btn.getAttribute('data-tool');
+            }
+        });
+        
+        if (activeToolName) {
+            sidebarToolBtns.forEach(btn => {
+                if (btn.getAttribute('data-tool') === activeToolName) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+        
+        // Sidebar button click handler
+        sidebarToolBtns.forEach(sidebarBtn => {
+            sidebarBtn.addEventListener('click', () => {
+                const tool = sidebarBtn.getAttribute('data-tool');
+                
+                // Find and click matching main button
+                let foundMatchingButton = false;
+                mainToolBtns.forEach(mainBtn => {
+                    if (mainBtn.getAttribute('data-tool') === tool) {
+                        mainBtn.click();
+                        foundMatchingButton = true;
+                    }
+                });
+                
+                // Update active state in sidebar
+                if (foundMatchingButton) {
+                    sidebarToolBtns.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    sidebarBtn.classList.add('active');
+                    
+                    // Close sidebar after selection on mobile
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('visible');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+        
+        // Main button click handler to update sidebar
+        mainToolBtns.forEach(mainBtn => {
+            mainBtn.addEventListener('click', () => {
+                const tool = mainBtn.getAttribute('data-tool');
+                
+                sidebarToolBtns.forEach(sidebarBtn => {
+                    if (sidebarBtn.getAttribute('data-tool') === tool) {
+                        sidebarBtn.classList.add('active');
+                    } else {
+                        sidebarBtn.classList.remove('active');
+                    }
+                });
+            });
+        });
+    }
 });
 
 class Node {
@@ -37,18 +212,65 @@ class Node {
 
 class PathFinder {
     constructor(rows, cols) {
-        this.rows = rows;
-        this.cols = cols;
+        // Adjust grid size based on screen width
+        if (window.innerWidth <= 360) {
+            this.rows = 15;
+            this.cols = 15;
+        } else if (window.innerWidth <= 480) {
+            this.rows = 20;
+            this.cols = 20;
+        } else if (window.innerWidth <= 768) {
+            this.rows = 25;
+            this.cols = 25;
+        } else if (window.innerWidth <= 1024) {
+            this.rows = 25;
+            this.cols = 30;
+        } else {
+            this.rows = rows;
+            this.cols = cols;
+        }
+        
         this.grid = [];
         this.startNode = null;
         this.endNode = null;
         this.isVisualizing = false;
-        this.speed = 50;
+        this.speed = 50; // Default speed, will be updated by slider
         this.currentTool = 'wall';
         this.visitedNodes = [];
         this.finalPath = [];
         this.initializeGrid();
         this.setupEventListeners();
+        
+        // Handle resize events to adjust grid if needed
+        window.addEventListener('resize', this.handleResize.bind(this));
+    }
+    
+    handleResize() {
+        // Only rebuild grid if screen size category changes
+        let newRows, newCols;
+        
+        if (window.innerWidth <= 360) {
+            newRows = 15;
+            newCols = 15;
+        } else if (window.innerWidth <= 480) {
+            newRows = 20;
+            newCols = 20;
+        } else if (window.innerWidth <= 768) {
+            newRows = 25;
+            newCols = 25;
+        } else if (window.innerWidth <= 1024) {
+            newRows = 25;
+            newCols = 30;
+        } else {
+            newRows = 25;
+            newCols = 40;
+        }
+        
+        if (newRows !== this.rows || newCols !== this.cols) {
+            this.rows = newRows;
+            this.cols = newCols;
+            this.clearGrid();
+        }
     }
 
     initializeGrid() {
@@ -80,6 +302,7 @@ class PathFinder {
         const algorithmSelect = document.getElementById('algorithm');
 
         let isDrawing = false;
+        let lastTouchedCell = null;
 
         // Algorithm dropdown enhancement
         algorithmSelect.addEventListener('focus', () => {
@@ -99,7 +322,7 @@ class PathFinder {
             });
         });
 
-        // Grid interaction
+        // Mouse events for desktop
         grid.addEventListener('mousedown', (e) => {
             if (this.isVisualizing) return;
             isDrawing = true;
@@ -115,6 +338,35 @@ class PathFinder {
         grid.addEventListener('mouseup', () => {
             isDrawing = false;
         });
+        
+        // Touch events for mobile
+        grid.addEventListener('touchstart', (e) => {
+            if (this.isVisualizing) return;
+            const touch = e.touches[0];
+            const element = document.elementFromPoint(touch.clientX, touch.clientY);
+            
+            if (element && element.classList.contains('cell')) {
+                e.preventDefault(); // Prevent scrolling when touching the grid
+                lastTouchedCell = element;
+                this.handleCellInteraction({ target: element });
+            }
+        }, { passive: false });
+        
+        grid.addEventListener('touchmove', (e) => {
+            if (this.isVisualizing) return;
+            const touch = e.touches[0];
+            const element = document.elementFromPoint(touch.clientX, touch.clientY);
+            
+            if (element && element.classList.contains('cell') && element !== lastTouchedCell) {
+                e.preventDefault(); // Prevent scrolling when touching the grid
+                lastTouchedCell = element;
+                this.handleCellInteraction({ target: element });
+            }
+        }, { passive: false });
+        
+        grid.addEventListener('touchend', () => {
+            lastTouchedCell = null;
+        });
 
         // Control buttons
         startBtn.addEventListener('click', () => this.startVisualization());
@@ -122,6 +374,33 @@ class PathFinder {
         resetBtn.addEventListener('click', () => this.resetPath());
         speedSlider.addEventListener('input', (e) => {
             this.speed = 101 - e.target.value;
+        });
+
+        // Mobile Speed Slider Listener
+        const mobileSpeedSlider = document.getElementById('speed-mobile');
+        if (mobileSpeedSlider) {
+            mobileSpeedSlider.addEventListener('input', (e) => {
+                this.speed = 101 - e.target.value;
+                // Optionally, sync the desktop slider if it exists
+                const desktopSlider = document.getElementById('speed');
+                if (desktopSlider) {
+                    desktopSlider.value = e.target.value;
+                }
+            });
+
+            // Initial sync from desktop slider to mobile
+            const desktopSlider = document.getElementById('speed');
+            if (desktopSlider) {
+                mobileSpeedSlider.value = desktopSlider.value;
+            }
+        }
+
+        // Sync desktop slider changes to mobile slider
+        speedSlider.addEventListener('input', (e) => {
+            this.speed = 101 - e.target.value;
+            if (mobileSpeedSlider) {
+                mobileSpeedSlider.value = e.target.value;
+            }
         });
     }
 
@@ -254,6 +533,18 @@ class PathFinder {
         if (!this.startNode || !this.endNode || this.isVisualizing) return;
 
         this.isVisualizing = true;
+        this.resetPath();
+        this.visitedNodes = [];
+        this.finalPath = [];
+        
+        for (let row = 0; row < this.rows; row++) {
+            for (let col = 0; col < this.cols; col++) {
+                this.grid[row][col].distance = Infinity;
+                this.grid[row][col].isVisited = false;
+                this.grid[row][col].previousNode = null;
+            }
+        }
+        
         const algorithm = document.getElementById('algorithm').value;
         
         switch (algorithm) {
@@ -265,6 +556,9 @@ class PathFinder {
                 break;
             case 'astar':
                 await this.visualizeAStar();
+                break;
+            case 'dfs':
+                await this.visualizeDFS();
                 break;
         }
 
@@ -469,40 +763,49 @@ class PathFinder {
             await new Promise(resolve => setTimeout(resolve, this.speed * 0.5));
         }
     }
-}
 
-// Add this near the top of your script.js file, after the PathFinder class definition
-class ThemeManager {
-    constructor() {
-        this.themeBtn = document.getElementById('theme-toggle');
-        this.root = document.documentElement;
-        this.currentTheme = 'dark';
-        
-        // Load saved theme preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            this.setTheme(savedTheme);
-        }
-        
-        this.themeBtn.addEventListener('click', () => {
-            const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
-            this.setTheme(newTheme);
-        });
-    }
+    async visualizeDFS() {
+        const stack = [this.startNode];
+        const visited = new Set();
+        this.visitedNodes = [];
 
-    setTheme(theme) {
-        this.currentTheme = theme;
-        if (theme === 'light') {
-            this.root.classList.add('light-theme');
-        } else {
-            this.root.classList.remove('light-theme');
+        while (stack.length > 0) {
+            const currentNode = stack.pop();
+
+            if (visited.has(currentNode)) continue;
+            visited.add(currentNode);
+            currentNode.isVisited = true;
+            this.visitedNodes.push(currentNode);
+
+            const cell = document.querySelector(`[data-row="${currentNode.row}"][data-col="${currentNode.col}"]`);
+            if (currentNode !== this.startNode && currentNode !== this.endNode) {
+                if (currentNode.weight > 1) {
+                    cell.classList.add('weight', 'visited');
+                } else {
+                    cell.classList.add('visited');
+                }
+            }
+            this.updateSidebar();
+            await new Promise(resolve => setTimeout(resolve, this.speed));
+
+            if (currentNode === this.endNode) {
+                break;
+            }
+
+            const neighbors = this.getNeighbors(currentNode);
+            for (const neighbor of neighbors) {
+                if (!visited.has(neighbor)) {
+                    neighbor.previousNode = currentNode;
+                    stack.push(neighbor);
+                }
+            }
         }
-        localStorage.setItem('theme', theme);
+
+        await this.visualizePath();
     }
 }
 
 // Initialize the pathfinder when the page loads
 window.addEventListener('load', () => {
     new PathFinder(25, 40);
-    new ThemeManager();
 });

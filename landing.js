@@ -90,4 +90,62 @@ const applyStaggeredAnimation = (elements, baseDelay = 0.08) => {
 };
 
 applyStaggeredAnimation(document.querySelectorAll('.feature-card'));
-applyStaggeredAnimation(document.querySelectorAll('.step')); 
+applyStaggeredAnimation(document.querySelectorAll('.step'));
+
+// Mobile sidebar menu functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const sidebarClose = document.querySelector('.sidebar-close');
+    const sidebar = document.querySelector('.mobile-sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+
+    if (mobileMenuToggle && sidebar && overlay) {
+        // Open sidebar - add event listener with stopPropagation
+        mobileMenuToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent event from bubbling up
+            sidebar.classList.add('open');
+            overlay.classList.add('visible');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when sidebar is open
+        });
+
+        // Close sidebar when clicking the close button
+        if (sidebarClose) {
+            sidebarClose.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent event from bubbling up
+                sidebar.classList.remove('open');
+                overlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            });
+        }
+
+        // Close sidebar when clicking the overlay
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+            document.body.style.overflow = '';
+        });
+
+        // Add click listener to sidebar to prevent clicks from closing it
+        sidebar.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent clicks from bubbling to document
+        });
+
+        // Add escape key press for closing
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close sidebar when screen resizes to larger size
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+}); 

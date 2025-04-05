@@ -13,6 +13,9 @@
 <body>
     <nav class="navbar">
         <div class="nav-left">
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
             <a href="index.html" class="home-link">
                 <img src="assets/Pathviz_favicon.png" alt="PathViz Logo" class="logo-icon">
                 <div class="logo">PathViz</div>
@@ -22,6 +25,7 @@
                     <option value="dijkstra">Dijkstra's Algorithm</option>
                     <option value="bfs">Breadth First Search</option>
                     <option value="astar">A* Algorithm</option>
+                    <option value="dfs">Depth First Search</option>
                 </select>
             </div>
             <div class="speed-control">
@@ -46,10 +50,10 @@
         </div>
         <div class="nav-right">
             <button class="tool-btn active" data-tool="wall">
-                <i class="fas fa-wall"></i> Wall
+                <i class="fas fa-border-all"></i> Wall
             </button>
             <button class="tool-btn" data-tool="weight">
-                <i class="fas fa-weight"></i> Weight
+                <i class="fas fa-weight-hanging"></i> Weight
             </button>
             <button class="tool-btn" data-tool="start">
                 <i class="fas fa-flag-checkered"></i> Start
@@ -59,9 +63,60 @@
             </button>
         </div>
     </nav>
+    
+    <!-- Mobile sidebar navigation -->
+    <div class="mobile-sidebar" aria-hidden="true">
+        <div class="sidebar-header">
+            <h2>Menu</h2>
+            <button class="sidebar-close" aria-label="Close navigation menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="sidebar-link">Home</a>
+            <a href="visualizer.html" class="sidebar-link active-page">Visualizer</a>
+            <a href="about.html" class="sidebar-link">About</a>
+            <div class="sidebar-controls">
+                <h3>Controls</h3>
+                <button id="sidebar-start" class="sidebar-btn">
+                    <i class="fas fa-play"></i> Start
+                </button>
+                <button id="sidebar-clear" class="sidebar-btn">
+                    <i class="fas fa-trash"></i> Clear
+                </button>
+                <button id="sidebar-reset" class="sidebar-btn">
+                    <i class="fas fa-undo"></i> Reset
+                </button>
+            </div>
+            <div class="sidebar-tools">
+                <h3>Tools</h3>
+                <button class="sidebar-tool-btn active" data-tool="wall">
+                    <i class="fas fa-border-all"></i> Wall
+                </button>
+                <button class="sidebar-tool-btn" data-tool="weight">
+                    <i class="fas fa-weight-hanging"></i> Weight
+                </button>
+                <button class="sidebar-tool-btn" data-tool="start">
+                    <i class="fas fa-flag-checkered"></i> Start
+                </button>
+                <button class="sidebar-tool-btn" data-tool="end">
+                    <i class="fas fa-flag"></i> End
+                </button>
+            </div>
+        </nav>
+    </div>
+    <div class="sidebar-overlay"></div>
+    
     <div class="main-content">
         <div class="grid-container">
             <div id="grid"></div>
+        </div>
+        <!-- Mobile Speed Control -->
+        <div class="mobile-speed-control-container">
+            <div class="speed-control">
+                <i class="fas fa-tachometer-alt"></i>
+                <input type="range" id="speed-mobile" min="1" max="100" value="50">
+            </div>
         </div>
         <div class="sidebar">
             <div class="sidebar-section">

@@ -431,16 +431,239 @@ footer {
     margin-top: 4rem;
 }
 
+/* Mobile menu toggle button */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
+    color: var(--primary);
+}
+
+/* Mobile sidebar */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    background: var(--surface);
+    z-index: 2000;
+    padding: 2rem 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+}
+
+.mobile-sidebar.open {
+    transform: translateX(280px);
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(64, 224, 208, 0.1);
+}
+
+.sidebar-header h2 {
+    color: var(--primary);
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.sidebar-close {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.sidebar-close:hover {
+    color: var(--primary);
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.sidebar-link {
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.sidebar-link:hover {
+    background: rgba(64, 224, 208, 0.1);
+    transform: translateX(5px);
+}
+
+.sidebar-link.active-page {
+    background: var(--primary);
+    color: var(--bg);
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Light theme sidebar */
+body.light-theme .mobile-sidebar {
+    background: var(--light-surface);
+}
+
+body.light-theme .sidebar-header {
+    border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+body.light-theme .sidebar-link:hover {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+/* Improved mobile responsive design */
 @media (max-width: 768px) {
     .nav-header {
-        padding: 1rem;
+        padding: 0.75rem 1rem;
+    }
+    
+    .nav-pagelinks {
+        display: none;
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
     }
     
     .hero {
-        padding: 2rem 1rem;
+        padding: 6rem 1rem 2rem;
     }
     
     .features-grid, .steps {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .feature-card {
+        padding: 1.5rem;
+    }
+    
+    .step {
+        padding: 1.5rem;
+    }
+    
+    /* Added visibility for mobile sidebar */
+    .mobile-sidebar {
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-sidebar.open {
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    .sidebar-overlay {
+        transition: all 0.3s ease;
+    }
+    
+    main {
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .nav-header {
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .logo-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .logo {
+        font-size: 1.1rem;
+    }
+    
+    .feature-card {
+        padding: 1.25rem;
+    }
+    
+    .feature-icon {
+        font-size: 2.25rem;
+    }
+    
+    .step {
+        padding: 1.25rem;
+    }
+    
+    .step-number {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 1.25rem;
+    }
+    
+    .cta-button {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Fix background animation */
+    .background-animation::before {
+        background-size: 60px 60px;
+    }
+}
+
+/* Added for medium-sized tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .feature-card {
+        padding: 1.75rem;
+    }
+    
+    .hero {
+        padding: 7rem 2rem 3rem;
     }
 }
